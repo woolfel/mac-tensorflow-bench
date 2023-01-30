@@ -8,7 +8,7 @@ print(tf.__version__)
 
 # The filename format has the epoch number + accuracy + loss in HDF5 format
 # the reason for using HDF5 format is cross platform compatibility and make it easier to load in other languages
-checkpoint_path = "training2/weights.{epoch:02d}-{val_accuracy:.3f}-{val_loss:.3f}.h5"
+checkpoint_path = "training/weights.{epoch:02d}-{epoch:02d}-{accuracy:.3f}-{val_accuracy:.3f}-{val_loss:.3f}.h5"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 
 def main():
