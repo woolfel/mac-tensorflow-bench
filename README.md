@@ -27,4 +27,4 @@ python cifar10_train.py checkpoints/batch64 64
 ## Observations
 
 RTX2060 6G runs into memory limitation with batch size 1024. Cifar10 images are small 32x32 pixels. If you were to train with larger images like PascalVoc or COCO, tensorflow would run into memory limitations quicker on memory limited video cards. Cifar10 images are ~1k, whereas COCO are 20-86K. If you use high res images that are 1024x1024 you would probably have to keep batch size below 64.
-(https://github.com/woolfel/mac-tensorflow-bench/blob/master/windows_memory_warning.png)
+https://github.com/woolfel/mac-tensorflow-bench/blob/master/windows_memory_warning.png
