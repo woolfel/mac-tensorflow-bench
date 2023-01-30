@@ -10,15 +10,19 @@ print(tf.__version__)
 # the reason for using HDF5 format is cross platform compatibility and make it easier to load in other languages
 checkpoint_path = "training/weights.{epoch:02d}-{epoch:02d}-{accuracy:.3f}-{val_accuracy:.3f}-{val_loss:.3f}.h5"
 checkpoint_dir = os.path.dirname(checkpoint_path)
+batch_size = 64
 
 def main():
     args = sys.argv[0:]
 
-    if len(sys.argv) == 1:
-        print(' ---------- checkpoints directory ', checkpoint_path)
+    if len(args) == 1:
+        print(' ----- checkpoints directory ', checkpoint_path)
     else:
+        if len(args) == 3:
+            batch_size = args[2]
         checkpoint_path = args[1] + "/weights.{epoch:02d}-{accuracy:.3f}-{loss:.3f}-{val_accuracy:.3f}-{val_loss:.3f}.h5"
-        print(' ---------- checkpoints directory ', checkpoint_path)
+        print(' ----- checkpoints directory ', args[1])
+        print(' -- batch size: ', batch_size)
 
     run(checkpoint_path)
 
