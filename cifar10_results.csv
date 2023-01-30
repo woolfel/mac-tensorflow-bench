@@ -11,3 +11,6 @@ m2max,38,96,cifar10_train.py,cifar10,256,317
 windows,rtx2060,6,cifar10_train.py,cifar10,512,348.8
 m1max,24,32,cifar10_train.py,cifar10,512,399.7
 m2max,38,96,cifar10_train.py,cifar10,512,310.3
+windows,rtx2060,6,cifar10_train.py,cifar10,1024,390.1
+m1max,24,32,cifar10_train.py,cifar10,1024,398.2
+m2max,38,96,cifar10_train.py,cifar10,1024,313.6
