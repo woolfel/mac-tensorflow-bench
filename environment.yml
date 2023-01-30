@@ -1,0 +1,12 @@
+name: tensorflow_bench
+channels:
+  - apple
+dependencies:
+  - python=3.9
+  - tensorflow-deps
+  - pip:
+      - tensorflow-macos==2.9
+      - tensorflow-metal==0.5.0
+      - tensorflow_datasets
+      - numpy
+      - marshmallow
