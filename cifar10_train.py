@@ -19,18 +19,18 @@ def main():
         print(' ----- checkpoints directory ', checkpoint_path)
     else:
         if len(args) == 3:
-            batch_size = args[2]
+            batch_size = int(args[2])
         checkpoint_path = args[1] + "/weights.{epoch:02d}-{accuracy:.3f}-{loss:.3f}-{val_accuracy:.3f}-{val_loss:.3f}.h5"
         print(' ----- checkpoints directory ', args[1])
         print(' -- batch size: ', batch_size)
 
-    run(checkpoint_path)
+    run(checkpoint_path, batch_size)
 
 def normalize_img(image, label):
     """Normalizes images: `uint8` -> `float32`."""
     return tf.cast(image, tf.float32) / 255., label
 
-def run(savepath):
+def run(savepath, batch):
     # the benchmark loads the CIFAR10 dataset from tensorflow datasets
     (ds_train, ds_test), ds_info = tfds.load(
         'cifar10',
@@ -41,20 +41,19 @@ def run(savepath):
     )
 
     # you can change the batch size to see how it performs. Larger batch size will stress GPU more
-    batch_size = 256
     epoch_count = 25
 
     ds_train = ds_train.map(
         normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)
     ds_train = ds_train.cache()
     ds_train = ds_train.shuffle(ds_info.splits['train'].num_examples)
-    ds_train = ds_train.batch(batch_size)
+    ds_train = ds_train.batch(batch)
     ds_train = ds_train.prefetch(tf.data.experimental.AUTOTUNE)
 
 
     ds_test = ds_test.map(
         normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)
-    ds_test = ds_test.batch(batch_size)
+    ds_test = ds_test.batch(batch)
     ds_test = ds_test.cache()
     ds_test = ds_test.prefetch(tf.data.experimental.AUTOTUNE)
 
@@ -99,7 +98,7 @@ def run(savepath):
         ds_train,
         epochs=epoch_count,
         validation_data=ds_test,
-        batch_size=batch_size,
+        batch_size=batch,
         callbacks=[cp_callback]
     )
     end_time = time.time()

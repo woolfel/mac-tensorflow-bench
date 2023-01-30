@@ -20,3 +20,5 @@ Select ARM 64 pkg and run the installer.
 
 ## Cifar 10 benchmark
 
+Cifar10 benchmark will use CIFAR 10 from tensorflow datasets with a simple Keras sequential model. The model has 13 layers.
+
