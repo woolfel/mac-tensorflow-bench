@@ -20,5 +20,10 @@ Select ARM 64 pkg and run the installer.
 
 ## Cifar 10 benchmark
 
-Cifar10 benchmark will use CIFAR 10 from tensorflow datasets with a simple Keras sequential model. The model has 13 layers.
+Cifar10 benchmark will use CIFAR 10 from tensorflow datasets with a simple Keras sequential model. The model has 13 layers. The script takes 2 arguments: checkpoint_path batch_size
 
+python cifar10_train.py checkpoints/batch64 64
+
+## Observations
+
+RTX2060 6G runs into memory limitation with batch size 1024. Cifar10 images are small 32x32 pixels. If you were to train with larger images like PascalVoc or COCO, tensorflow would run into memory limitations quicker on memory limited video cards. Cifar10 images are ~1k, whereas COCO are 20-86K. If you use high res images that are 1024x1024 you would probably have to keep batch size below 64.
