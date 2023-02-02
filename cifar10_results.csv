@@ -1,4 +1,4 @@
-system,gpu,gpu_ram,test,dataset,batch,elapsed_time_sec
+system,gpu,gpu_ram,test,dataset,batch,elapsed_time_sec,peak_mem_G
 windows,rtx2060,6,cifar10_train.py,cifar10,64,476.8
 m1max,24,32,cifar10_train.py,cifar10,64,493.1
 m2max,38,96,cifar10_train.py,cifar10,64,361.5
@@ -7,10 +7,10 @@ m1max,24,32,cifar10_train.py,cifar10,128,422.8
 m2max,38,96,cifar10_train.py,cifar10,128,331.9
 windows,rtx2060,6,cifar10_train.py,cifar10,256,375.2
 m1max,24,32,cifar10_train.py,cifar10,256,405
-m2max,38,96,cifar10_train.py,cifar10,256,317
-windows,rtx2060,6,cifar10_train.py,cifar10,512,348.8
+m2max,38,96,cifar10_train.py,cifar10,256,317,3.9
+windows,rtx2060,6,cifar10_train.py,cifar10,512,348.8,6
 m1max,24,32,cifar10_train.py,cifar10,512,399.7
-m2max,38,96,cifar10_train.py,cifar10,512,310.3
-windows,rtx2060,6,cifar10_train.py,cifar10,1024,390.1
-m1max,24,32,cifar10_train.py,cifar10,1024,398.2
-m2max,38,96,cifar10_train.py,cifar10,1024,313.6
+m2max,38,96,cifar10_train.py,cifar10,512,310.3,8
+windows,rtx2060,6,cifar10_train.py,cifar10,1024,390.1,6
+m1max,24,32,cifar10_train.py,cifar10,1024,398.2,
+m2max,38,96,cifar10_train.py,cifar10,1024,313.6,16.1
