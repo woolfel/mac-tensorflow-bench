@@ -60,7 +60,7 @@ def run(savepath, batch):
     # this version turns off bias for the first 2 hidden layers. Turning off bias
     # reduces the chance of overfitting, but it takes more epochs to reach the
     # same level of accuracy than with bias on
-    model = tf.keras.models.Sequential([
+    model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(128, kernel_size=(2, 2), strides=(1,1), activation='relu', input_shape=(32,32,3)),
     tf.keras.layers.Conv2D(128, kernel_size=(2, 2), strides=(1,1), activation='relu', name='L1_conv2d', use_bias=False),
     tf.keras.layers.Conv2D(128, kernel_size=(2, 2), strides=(1,1), activation='relu', name='L2_conv2d', use_bias=False),
