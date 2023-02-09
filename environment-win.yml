@@ -1,6 +1,4 @@
 name: tensorflow_bench
-channels:
-  - apple
 dependencies:
   - python=3.9
   - pip:
@@ -9,4 +7,3 @@ dependencies:
       - keras_cv==0.4.1
       - numpy
       - marshmallow
-      - pycocotools

@@ -18,11 +18,21 @@ Select ARM 64 pkg and run the installer.
 4. conda activate tensorflow_bench
 5. verify everything is installed correctly by running env_check.py
 
+### Setup / Errors on Windows
+
+To install on windows, rename environment.yml to environment-mac.yml. Rename environment-win.yml to environment.yml and run "conda env update environment.yml" command.
+
 ## Cifar 10 benchmark
 
 Cifar10 benchmark will use CIFAR 10 from tensorflow datasets with a simple Keras sequential model. The model has 13 layers. The script takes 2 arguments: checkpoint_path batch_size
 
 python cifar10_train.py checkpoints/batch64 64
+
+## Results
+
+I have some basic results in a CSV file
+
+[https://github.com/woolfel/mac-tensorflow-bench/blob/master/cifar10_results.csv] cifar10_results.csv
 
 ## Observations
 
