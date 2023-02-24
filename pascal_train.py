@@ -1,8 +1,6 @@
 # Disclaimer!!   this script doesn't work on Windows or Mac yet. Even though I borrowed from Keras_cv guides,
 # this spits out a bunch of errors. The only difference is this vesion doesn't use linux specific libraries
 # and skips the visualization steps. The original script is https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/retina_net_overview.py
-# Since google doesn't care about writing good documentation or keeping it up-to-date, developers have to suffer
-# the pain of a million paper cuts.
 import tensorflow as tf
 import tensorflow_datasets as tfds
 from tensorflow import keras
@@ -18,7 +16,7 @@ print('Tensorflow version - ',tf.__version__)
 print('Keras_cv version - ', keras_cv.__version__)
 
 checkpoint_path = "training/weights.{epoch:02d}-{epoch:02d}-{accuracy:.3f}-{val_accuracy:.3f}-{val_loss:.3f}.h5"
-data_directory = 'H:/tensorflow_datasets/voc'
+data_directory = '~/tensorflow_datasets/voc'
 batch_size=64
 epoch_count=50
 num_classes=20
@@ -53,10 +51,10 @@ def unpackage_tfds_inputs(inputs):
         target="xywh",
     )
     bounding_boxes = {
-        "classes": tf.cast(inputs["objects"]["label"], dtype=float),
-        "boxes": tf.cast(boxes, dtype=float),
+        "classes": tf.cast(inputs["objects"]["label"], dtype=tf.float32),
+        "boxes": tf.cast(boxes, dtype=tf.float32),
     }
-    return {"images": tf.cast(image, float), "bounding_boxes": bounding_boxes}
+    return {"images": tf.cast(image, tf.float32), "bounding_boxes": bounding_boxes}
 
 
 def dict_to_tuple(inputs):
@@ -73,18 +71,17 @@ def run(checkpoint_path, model):
     # map to convert VOC dataset
     train_ds = train_dataset.map(unpackage_tfds_inputs, num_parallel_calls=tf.data.AUTOTUNE)
     eval_ds = eval_dataset.map(unpackage_tfds_inputs, num_parallel_calls=tf.data.AUTOTUNE)
-
-    class_ids = [
-    "Aeroplane","Bicycle","Bird","Boat","Bottle","Bus","Car",
-    "Cat","Chair","Cow","Dining Table","Dog","Horse","Motorbike",
-    "Person","Potted Plant","Sheep","Sofa","Train","Tvmonitor","Total"]
-
-    class_mapping = dict(zip(range(len(class_ids)), class_ids))
+    
+    inference_resizing = keras_cv.layers.Resizing(
+        640, 640, bounding_box_format="xywh", pad_to_aspect_ratio=True)
+    eval_ds = eval_ds.map(inference_resizing, num_parallel_calls=tf.data.AUTOTUNE)
 
     train_ds = train_ds.map(dict_to_tuple, num_parallel_calls=tf.data.AUTOTUNE)
     eval_ds = eval_ds.map(dict_to_tuple, num_parallel_calls=tf.data.AUTOTUNE)
     train_ds = train_ds.prefetch(tf.data.AUTOTUNE)
     eval_ds = eval_ds.prefetch(tf.data.AUTOTUNE)
+    train_ds = train_ds.apply(tf.data.experimental.dense_to_ragged_batch(batch_size))
+    eval_ds = eval_ds.apply(tf.data.experimental.dense_to_ragged_batch(batch_size))
 
     base_lr = 0.01
     lr_decay = tf.keras.optimizers.schedules.PiecewiseConstantDecay(boundaries=[12000 * 16, 16000 * 16],
@@ -102,7 +99,6 @@ def run(checkpoint_path, model):
                                                     monitor='accuracy',
                                                     save_freq='epoch')
     callbacks = [PyCOCOCallback(eval_ds, bounding_box_format="xywh"),
-        keras.callbacks.TensorBoard(log_dir="logs"),
         cp_callback]
 
     start_time = time.time()
