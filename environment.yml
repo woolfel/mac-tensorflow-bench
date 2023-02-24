@@ -2,13 +2,14 @@ name: tensorflow_bench
 channels:
   - apple
 dependencies:
-  - python=3.9
+  - python=3.10
   - tensorflow-deps
   - pip:
-      - tensorflow-macos==2.9
-      - tensorflow-metal==0.5.0
+      - tensorflow-macos==2.10
+      - tensorflow-metal==0.6.0
       - tensorflow_datasets
-      - keras_cv==0.4.1
+      - keras_cv==0.4.0
       - numpy
       - marshmallow
       - pycocotools
+      - wandb
