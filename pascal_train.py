@@ -1,6 +1,6 @@
 # Disclaimer!!   this script doesn't work on Windows or Mac yet. Even though I borrowed from Keras_cv guides,
-# this spits out a bunch of errors. The only difference is this vesion doesn't use linux specific libraries
-# and skips the visualization steps. The original script is https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/retina_net_overview.py
+# this spits out a bunch of errors. The original script is https://github.com/keras-team/keras-io/blob/master/guides/keras_cv/retina_net_overview.py
+# Requires tensorflow 2.11 and Keras_cv 0.4.2
 import tensorflow as tf
 import tensorflow_datasets as tfds
 from tensorflow import keras

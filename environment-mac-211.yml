@@ -1,0 +1,14 @@
+name: tf211_bench
+channels:
+  - apple
+dependencies:
+  - python=3.10
+  - tensorflow-deps
+  - pip:
+      - tensorflow-macos==2.11
+      - tensorflow_datasets
+      - keras_cv==0.4.2
+      - numpy
+      - marshmallow
+      - pycocotools
+      - wandb
