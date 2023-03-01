@@ -16,7 +16,7 @@ print('Tensorflow version - ',tf.__version__)
 print('Keras_cv version - ', keras_cv.__version__)
 
 checkpoint_path = "training/weights.{epoch:02d}-{epoch:02d}-{accuracy:.3f}-{val_accuracy:.3f}-{val_loss:.3f}.h5"
-data_directory = '~/tensorflow_datasets/voc'
+data_directory = '../tensorflow_dataset/voc'
 batch_size=64
 epoch_count=50
 num_classes=20
@@ -62,7 +62,7 @@ def dict_to_tuple(inputs):
         inputs["bounding_boxes"], max_boxes=32
     )
 
-def run(checkpoint_path, model):
+def run(checkpoint_path, model: keras_cv.models.RetinaNet):
     # get pascalvoc dataset
     train_dataset = tfds.load('voc/2007', split='train+validation', 
         with_info=False, shuffle_files=True, data_dir=data_directory)
