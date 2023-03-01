@@ -1,0 +1,10 @@
+name: tf211_bench
+dependencies:
+  - python=3.9
+  - pip:
+      - tensorflow==2.11
+      - tensorflow_datasets
+      - keras_cv==0.4.2
+      - numpy
+      - marshmallow
+      - pycocotools
