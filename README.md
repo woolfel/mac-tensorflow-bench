@@ -36,7 +36,9 @@ I have some basic results in a CSV file
 
 ## Rock Paper Scissors benchmark
 
-rps_benchmark uses rock_paper_scissors dataset from Tensorflow datasets. It is similar to cifar10 benchmark, but uses more memory. Using batch size 64 on M2Max, it uses 30G of memory. On Windows 10 with RTX 2060 6G, it crashes with out of memory error. This suggests the benchmark won't run on anything less than 20G of video memory.
+rps_benchmark uses rock_paper_scissors dataset from Tensorflow datasets. It is similar to cifar10 benchmark, but uses more memory. Using batch size 64 on M2Max, it uses 30G of memory. On Windows 10 with RTX 2060 6G, it crashes with out of memory error. This suggests the benchmark won't run on anything less than 45.7G of video memory. Run the benchmark
+
+python rps_train.py checkpoints/batch64 64
 
 ## Observations
 
