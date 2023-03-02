@@ -34,6 +34,10 @@ I have some basic results in a CSV file
 
 [https://github.com/woolfel/mac-tensorflow-bench/blob/master/cifar10_results.csv] cifar10_results.csv
 
+## Rock Paper Scissors benchmark
+
+rps_benchmark uses rock_paper_scissors dataset from Tensorflow datasets. It is similar to cifar10 benchmark, but uses more memory. Using batch size 64 on M2Max, it uses 30G of memory. On Windows 10 with RTX 2060 6G, it crashes with out of memory error. This suggests the benchmark won't run on anything less than 20G of video memory.
+
 ## Observations
 
 RTX2060 6G runs into memory limitation with batch size 1024. Cifar10 images are small 32x32 pixels. If you were to train with larger images like ImageNet, PascalVoc or COCO, tensorflow would run into memory limitations quicker on memory limited video cards. ImageNet images are 224x224. COCO images vary in dimensions. Cifar10 images are ~1k, whereas COCO are 20-86K. If you use high res images that are 1024x1024 you would probably have to keep batch size below 64.
