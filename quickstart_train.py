@@ -58,7 +58,6 @@ densenet.compile(
 start_time = time.time()
 densenet.fit(train_dataset, validation_data=test_dataset, epochs=25)
 end_time = time.time()
+print(densenet.summary())
 print('Elapsed Time: %0.4f seconds' % (end_time - start_time))
 print('Elapsed Time: %0.4f minutes' % ((end_time - start_time)/60))
-
-#print(densenet.summary())
