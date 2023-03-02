@@ -41,7 +41,7 @@ def run(savepath, batch):
     )
 
     # you can change the batch size to see how it performs. Larger batch size will stress GPU more
-    epoch_count = 10
+    epoch_count = 20
 
     ds_train = ds_train.map(
         normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)
@@ -61,19 +61,20 @@ def run(savepath, batch):
     # reduces the chance of overfitting, but it takes more epochs to reach the
     # same level of accuracy than with bias on
     model = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(64, kernel_size=(5, 5), strides=(1,1), activation='relu', input_shape=(300,300,3)),
-    tf.keras.layers.Conv2D(64, kernel_size=(3, 3), strides=(1,1), activation='relu', name='L1_conv2d', use_bias=False),
-    tf.keras.layers.Conv2D(32, kernel_size=(2, 2), strides=(1,1), activation='relu', name='L2_conv2d', use_bias=False),
+    tf.keras.layers.Conv2D(64, kernel_size=(7, 7), strides=(1,1), activation='relu', input_shape=(300,300,3)),
+    tf.keras.layers.Conv2D(64, kernel_size=(5, 5), strides=(1,1), activation='relu', name='L1_conv2d', use_bias=False),
+    tf.keras.layers.Conv2D(32, kernel_size=(3, 3), strides=(1,1), activation='relu', name='L2_conv2d', use_bias=False),
     tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2, name='L3_MaxP'),
     tf.keras.layers.Conv2D(64, kernel_size=(2, 2), activation='relu', name='L4_conv2d', use_bias=False),
-    tf.keras.layers.Conv2D(64, kernel_size=(2, 2), activation='relu', name='L5_conv2d', use_bias=False),
-    tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2, name='L6_MaxP'),
-    tf.keras.layers.Conv2D(128, kernel_size=(1, 1), activation='relu', name='L7_conv2d'),
-    tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2, name='L8_MaxP'),
-    tf.keras.layers.Dropout(0.290, name='L9_Drop'),
-    tf.keras.layers.Flatten(name='L10_flat'),
-    tf.keras.layers.Dense(64, activation='relu', name='L11_Dense'),
-    tf.keras.layers.Dropout(0.5683, name='L12_Drop'),
+    tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2, name='L5_MaxP'),
+    tf.keras.layers.Conv2D(64, kernel_size=(2, 2), activation='relu', name='L6_conv2d', use_bias=False),
+    tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2, name='L7_MaxP'),
+    tf.keras.layers.Conv2D(32, kernel_size=(1, 1), activation='relu', name='L8_conv2d'),
+    tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=2, name='L9_MaxP'),
+    tf.keras.layers.Dropout(0.290, name='L10_Drop'),
+    tf.keras.layers.Flatten(name='L11_flat'),
+    tf.keras.layers.Dense(64, activation='relu', name='L12_Dense'),
+    tf.keras.layers.Dropout(0.5683, name='L13_Drop'),
     tf.keras.layers.Dense(3, activation='softmax', name='Dense_output')
     ], "rock-paper-scissors-train")
 
