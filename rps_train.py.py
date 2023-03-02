@@ -41,7 +41,7 @@ def run(savepath, batch):
     )
 
     # you can change the batch size to see how it performs. Larger batch size will stress GPU more
-    epoch_count = 25
+    epoch_count = 10
 
     ds_train = ds_train.map(
         normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)
