@@ -43,21 +43,21 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath="checkpoint/weights.{e
                                                     monitor='accuracy',
                                                     save_freq='epoch')
 # Create a model
-densenet = keras_cv.models.MobileNetV3Small(
+mobilenet = keras_cv.models.MobileNetV3Small(
     include_rescaling=True,
     include_top=True,
     classes=3
 )
-densenet.compile(
+mobilenet.compile(
     loss='categorical_crossentropy',
     optimizer='adam',
     metrics=['accuracy']
 )
 
+print(mobilenet.summary())
 # Train your model
 start_time = time.time()
-densenet.fit(train_dataset, validation_data=test_dataset, epochs=25)
+mobilenet.fit(train_dataset, validation_data=test_dataset, epochs=25)
 end_time = time.time()
-print(densenet.summary())
 print('Elapsed Time: %0.4f seconds' % (end_time - start_time))
 print('Elapsed Time: %0.4f minutes' % ((end_time - start_time)/60))
