@@ -55,8 +55,10 @@ RTX2060 6G runs into memory limitation with batch size 1024. Cifar10 images are 
 
 ### Rock Paper Scissors
 
-When I run both versions on Windows, tensorflow attempts to allocate video memory and spits out a fatal error on layer 5. For me, the big win for Apple Silicon Macbook Pro is it enables you to run experiments on datasets that have realistic images. Cifar10, Mnist and Fashion Mnist are industry standard benchmarks, but they don't produce usable models. If we look at Google's transfer learning recommendation, they suggest using MobileNet, DenseNet or ResNet trained on ImageNet dataset.
+When I run both versions on Windows, tensorflow attempts to allocate video memory and dies on layer 5. The big win for Apple Silicon Macbook is it enables you to run experiments on realistic datasets. Cifar10, Mnist and Fashion Mnist are industry standard benchmarks, but they don't produce usable models. If we look at Google's transfer learning recommendation, they suggest using MobileNet, DenseNet or ResNet trained on ImageNet dataset.
 
 [ImageNet 2012 on Tensorflow Datasets](https://www.tensorflow.org/datasets/catalog/imagenet2012)
 
-ImageNet is a good starting point for training real models. The dataset doesn't have a fixed size and the photo dimensions vary. There's 1000 classes in the 2012 version. Google, Amazon, Apple, Facebook and Microsoft all have bigger datasets, but those aren't public.
+ImageNet is a good starting point for training real models. The dataset doesn't have a fixed size and the photo dimensions vary. There's 1000 classes in the 2012 version. 
+
+Rock paper scissors photos are 300x300. Training has 2520 and test has 372.
