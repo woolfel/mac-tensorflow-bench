@@ -105,9 +105,9 @@ def run(savepath, batch):
 
     # A final test to evaluate the model
     print('Test loss:', model.loss)
+    print(model.summary())
     print('Elapsed Time: %0.4f seconds' % (end_time - start_time))
     print('Elapsed Time: %0.4f minutes' % ((end_time - start_time)/60))
-    print(model.summary())
 
 # this is the recommended approach of handling main function
 if __name__ == "__main__":

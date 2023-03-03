@@ -76,7 +76,7 @@ def run(savepath, batch):
     tf.keras.layers.Dense(64, activation='relu', name='L12_Dense'),
     tf.keras.layers.Dropout(0.5683, name='L13_Drop'),
     tf.keras.layers.Dense(3, activation='softmax', name='Dense_output')
-    ], "rock-paper-scissors-train")
+    ], "rock-paper-scissors-train-small")
 
     model.compile(
         loss='sparse_categorical_crossentropy',
@@ -106,9 +106,9 @@ def run(savepath, batch):
 
     # A final test to evaluate the model
     print('Test loss:', model.loss)
+    print(model.summary())
     print('Elapsed Time: %0.4f seconds' % (end_time - start_time))
     print('Elapsed Time: %0.4f minutes' % ((end_time - start_time)/60))
-    print(model.summary())
 
 # this is the recommended approach of handling main function
 if __name__ == "__main__":
