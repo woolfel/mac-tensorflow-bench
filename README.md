@@ -36,12 +36,27 @@ I have some basic results in a CSV file
 
 ## Rock Paper Scissors benchmark
 
-rps_benchmark uses rock_paper_scissors dataset from Tensorflow datasets. It is similar to cifar10 benchmark, but uses more memory. Using batch size 64 on M2Max, it uses 30G of memory. On Windows 10 with RTX 2060 6G, it crashes with out of memory error. This suggests the benchmark won't run on anything less than 45.7G of video memory. Run the benchmark
+rps_train uses rock_paper_scissors dataset from Tensorflow datasets. It's similar to cifar10 benchmark, but uses more memory. There's two versions of rock_paper_scissors training benchmark. The main difference between the two versions is the total number of parameters and layers. On Windows with RTX 2060 6G, both versions get out-of-memory error and won't run.
+
+rps_train.py - 170,305,283
+
+rps2_train.py - 749,091
+
+Example:
 
 python rps_train.py checkpoints/batch64 64
+
 
 ## Observations
 
 RTX2060 6G runs into memory limitation with batch size 1024. Cifar10 images are small 32x32 pixels. If you were to train with larger images like ImageNet, PascalVoc or COCO, tensorflow would run into memory limitations quicker on memory limited video cards. ImageNet images are 224x224. COCO images vary in dimensions. Cifar10 images are ~1k, whereas COCO are 20-86K. If you use high res images that are 1024x1024 you would probably have to keep batch size below 64.
 
 ![memory error](https://github.com/woolfel/mac-tensorflow-bench/blob/master/windows_memory_warning.png)
+
+### Rock Paper Scissors
+
+When I run both versions on Windows, tensorflow attempts to allocate video memory and spits out a fatal error on layer 5. For me, the big win for Apple Silicon Macbook Pro is it enables you to run experiments on datasets that have realistic images. Cifar10, Mnist and Fashion Mnist are industry standard benchmarks, but they don't produce usable models. If we look at Google's transfer learning recommendation, they suggest using MobileNet, DenseNet or ResNet trained on ImageNet dataset.
+
+[ImageNet 2012 on Tensorflow Datasets](https://www.tensorflow.org/datasets/catalog/imagenet2012)
+
+ImageNet is a good starting point for training real models. The dataset doesn't have a fixed size and the photo dimensions vary. There's 1000 classes in the 2012 version. Google, Amazon, Apple, Facebook and Microsoft all have bigger datasets, but those aren't public.
