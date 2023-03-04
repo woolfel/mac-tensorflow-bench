@@ -1,0 +1,5 @@
+system,cpu,tensorflow,keras,test,dataset,batch,elapsed_time_min
+Win,Ryzen 3700X,2.11,0.4.2,dense_train.py,rock_paper_scissors,16,73
+MBP,M2Max,2.11,0.4.2,dense_train.py,rock_paper_scissors,16,42
+Win,Ryzen 3700X,2.11,0.4.2,efficientnet_train.py,rock_paper_scissors,16,28.5
+MBP,M2Max,2.11,0.4.2,efficientnet_train.py,rock_paper_scissors,16,10.5
