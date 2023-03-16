@@ -9,4 +9,5 @@ MBP,M2Max,2.11,0.4.2,darknet21_train.py,rock_paper_scissors,16,20.9
 MBP,Ryzen 3700X,2.11,0.4.2,resnet_train.py,rock_paper_scissors,16,242
 MBP,M1Max,2.11,0.4.2,resnet_train.py,rock_paper_scissors,16,157.6
 MBP,M2Max,2.11,0.4.2,resnet_train.py,rock_paper_scissors,16,132.7
+MBP,M2Max,2.11,0.4.2,resnet_train.py,rock_paper_scissors,64,132.1
 MBP,M2Max,2.11,0.4.2,faster_rcnn.py,waymo,8,322.4
