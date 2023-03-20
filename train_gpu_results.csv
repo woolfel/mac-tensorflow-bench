@@ -2,8 +2,8 @@ system,cpu,gpu,tensorflow,keras,test,dataset,batch,elapsed_time_min
 MBP,Ryzen 3700X,RTX 2060 6G,2.9,0.4.2,rps2_train.py,rock_paper_scissors,8,12.97
 MBP,M1Max,24GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,8,14.4
 MBP,M1Max,24GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,12,14.0
-MBP,M1Max,24GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,16,14.0
-MBP,M1Max,24GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,24,14.3
+MBP,M1Max,24GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,16,13.9
+MBP,M1Max,24GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,24,14.2
 MBP,M1Max,24GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,32,14.5
 MBP,M2Max,38GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,12,10.1
 MBP,M2Max,38GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,16,10.2
