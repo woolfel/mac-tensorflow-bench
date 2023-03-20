@@ -1,0 +1,3 @@
+system,cpu,gpu,tensorflow,keras,test,dataset,batch,elapsed_time_min
+MBP,Ryzen 3700X,RTX 2060 6G,2.9,0.4.2,rps2_train.py,rock_paper_scissors,8,12.97
+MBP,M2Max,38GPU,2.10,0.4.2,rps2_train.py,rock_paper_scissors,32,10.4
