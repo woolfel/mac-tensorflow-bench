@@ -61,4 +61,12 @@ When I run both versions on Windows, tensorflow attempts to allocate video memor
 
 ImageNet is a good starting point for training real models. The dataset doesn't have a fixed size and the photo dimensions vary. There's 1000 classes in the 2012 version. 
 
-Rock paper scissors photos are 300x300. Training has 2520 and test has 372.
+Rock paper scissors photos are 300x300. Training has 2,520 and test has 372 images. Some general observations on the dataset. If you keep parameter count below 1 million, you can training batch size up to 32. Models like faster_rcnn, resnet, mobilenet and densenet will only train with batch size 8 or 16. To calculate out the limit, subtract the memory used by the model from the physical VRAM. The remaining memory is what's left for images.
+
+paramter_count x 4 kilobytes = total memory used by model
+
+phyiscal memory - total memory used by model = memory remaining for training data
+
+If the training data is 300 x 300 pixel, the average file size should be around 270 kilobyte.
+
+If the training data is 600 x 600, the average file size should be around 1 megabyte.
