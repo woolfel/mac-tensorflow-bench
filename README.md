@@ -14,7 +14,7 @@ Select ARM 64 pkg and run the installer.
 
 1. git clone https://github.com/woolfel/mac-tensorflow-bench
 2. cd mac-tensorflow-bench
-3. conda env update environment.yml
+3. conda env update -f environment.yml
 4. conda activate tensorflow_bench
 5. verify everything is installed correctly by running env_check.py
 
