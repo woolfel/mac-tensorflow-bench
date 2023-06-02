@@ -3,61 +3,88 @@ import tensorflow as tf
 from tensorflow import keras
 import tensorflow_datasets as tfds
 import time
+import sys
 
 print(tf.__version__)
 print(keras_cv.__version__)
 
-# Create a preprocessing pipeline
-augmenter = keras_cv.layers.Augmenter(
-    layers=[
-        keras_cv.layers.RandomFlip(),
-        keras_cv.layers.RandAugment(value_range=(0, 255)),
-        keras_cv.layers.CutMix(),
-        keras_cv.layers.MixUp()
-    ]
-)
+def main():
+    args = sys.argv[0:]
+    savepath = args[1] + "/weights.{epoch:02d}-{accuracy:.3f}-{loss:.3f}-{val_accuracy:.3f}-{val_loss:.3f}.h5"
+    epoch = int(args[2])
+    batch_size = int(args[3])
+    logpath = args[1] + "/rockpaperscissor_training.csv"
+    train(savepath, epoch, batch_size, logpath)
 
-def preprocess_data(images, labels, augment=False):
-    labels = tf.one_hot(labels, 3)
-    inputs = {"images": images, "labels": labels}
-    outputs = augmenter(inputs) if augment else inputs
-    return outputs['images'], outputs['labels']
+def createModel():
+    model = tf.keras.applications.ResNet50V2(
+    include_top=False, weights=None,
+    input_tensor=None, input_shape=(300,300,3),
+    pooling="max", classifier_activation="softmax", classes=3)
+    return model
 
-# Augment a `tf.data.Dataset`
-train_dataset, test_dataset = tfds.load(
-    'rock_paper_scissors',
-    as_supervised=True,
-    split=['train', 'test'],
-)
-train_dataset = train_dataset.batch(16).map(
-    lambda x, y: preprocess_data(x, y, augment=True),
-        num_parallel_calls=tf.data.AUTOTUNE).prefetch(
-            tf.data.AUTOTUNE)
-test_dataset = test_dataset.batch(16).map(
-    preprocess_data, num_parallel_calls=tf.data.AUTOTUNE).prefetch(
-        tf.data.AUTOTUNE)
+def normalize_img(image, label):
+    """Normalizes images: `uint8` -> `float32`."""
+    return tf.cast(image, tf.float32) / 255., label
 
-cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath="checkpoint/weights.{epoch:02d}-{accuracy:.3f}-{loss:.3f}-{val_accuracy:.3f}-{val_loss:.3f}.h5",
+def createDataset(batchsize):
+    (train, test), info = tfds.load(
+        'rock_paper_scissors',
+        split=['train', 'test'],
+        shuffle_files=True,
+        as_supervised=True,
+        with_info=True,
+    )
+    train = train.map(
+        normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)
+    train = train.cache()
+    train = train.shuffle(info.splits['train'].num_examples)
+    train = train.batch(batchsize)
+    train = train.prefetch(tf.data.experimental.AUTOTUNE)
+
+    test = test.map(
+        normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)
+    test = test.batch(batchsize)
+    test = test.cache()
+    test = test.prefetch(tf.data.experimental.AUTOTUNE)
+    return (train, test), info
+
+def train(savepath, epoch, batchsize, logpath):
+    #create the model with the given python script
+    model = createModel()
+    #compile the model 
+    model.compile(
+        loss='sparse_categorical_crossentropy',
+        optimizer=tf.keras.optimizers.Adam(0.001),
+        metrics=['accuracy']
+    )
+
+    # create the dataset
+        # the benchmark loads the CIFAR10 dataset from tensorflow datasets
+    (train, test), info = createDataset(batchsize)
+
+    # Create a callback that saves the model's weights
+    cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=savepath,
                                                     save_weights_only=False,
                                                     verbose=1,
                                                     monitor='accuracy',
                                                     save_freq='epoch')
-# Create a model
-resnet = keras_cv.models.ResNet101V2(
-    include_rescaling=True,
-    include_top=True,
-    classes=3
-)
-resnet.compile(
-    loss='categorical_crossentropy',
-    optimizer='adam',
-    metrics=['accuracy']
-)
+    csv_logger = tf.keras.callbacks.CSVLogger(logpath,append=True)
 
-print(resnet.summary())
-# Train your model
-start_time = time.time()
-resnet.fit(train_dataset, validation_data=test_dataset, epochs=5)
-end_time = time.time()
-print('Elapsed Time: %0.4f seconds' % (end_time - start_time))
-print('Elapsed Time: %0.4f minutes' % ((end_time - start_time)/60))
+    start_time = time.time()
+
+    model.fit(
+        train,
+        epochs=epoch,
+        validation_data=test,
+        batch_size=batchsize,
+        callbacks=[cp_callback, csv_logger]
+    )
+    end_time = time.time()
+    print('Test loss:', model.loss)
+    print(model.summary())
+    print('Elapsed Time: %0.4f seconds' % (end_time - start_time))
+    print('Elapsed Time: %0.4f minutes' % ((end_time - start_time)/60))
+
+if __name__ == "__main__":
+    main()
