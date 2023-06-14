@@ -70,3 +70,7 @@ phyiscal memory - total memory used by model = memory remaining for training dat
 If the training data is 300 x 300 pixel, the average file size should be around 270 kilobyte.
 
 If the training data is 600 x 600, the average file size should be around 1 megabyte.
+
+## Tensorflow Datasets Bug
+
+On June 14, 2023 Alex reported an issue with the conda environment and tensorflow dataset. It turns out the latest version has a bug and doesn't work on MacOS. Hurray for Google and the same old BS. The fix was to set Tensorflow Datasets to 4.8.0 instead of using the newest version as of June 4.9.2.
