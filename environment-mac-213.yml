@@ -5,9 +5,10 @@ dependencies:
   - python=3.10
   - tensorflow-deps
   - pip:
-      - tensorflow-macos==2.11
-      - tensorflow_datasets
-      - keras_cv==0.4.2
+      - tensorflow==2.13-rc1
+      - tensorflow-metal
+      - tensorflow_datasets==4.9.2
+      - keras_cv==0.5.0
       - numpy
       - marshmallow
       - pycocotools
