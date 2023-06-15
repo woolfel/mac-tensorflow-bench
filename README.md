@@ -74,3 +74,7 @@ If the training data is 600 x 600, the average file size should be around 1 mega
 ## Tensorflow Datasets Bug
 
 On June 14, 2023 Alex reported an issue with the conda environment and tensorflow dataset. It turns out the latest version has a bug and doesn't work on MacOS. Hurray for Google and the same old BS. The fix was to set Tensorflow Datasets to 4.8.0 instead of using the newest version as of June 4.9.2.
+
+## June 15, 2023 - Update
+
+Apple has fixed tensorflow-macos and tensorflow-metal. I was able to get 2.13 RC1 working with tensorflow-macos. There's still an issue with keras-cv on MacOS, but at least 2.13 will work on Apple Silicon once Google releases 2.13.
